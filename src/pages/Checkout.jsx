@@ -156,7 +156,9 @@ const Checkout = () => {
                         <br />
                         <select className="form-select" id="country" required>
                           <option value="">Choose...</option>
-                          <option>India</option>
+                          <option>Tunisia</option>
+                          <option>Algeria</option>
+                          <option>Marroco</option>
                         </select>
                         <div className="invalid-feedback">
                           Please select a valid country.

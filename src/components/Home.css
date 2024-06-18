@@ -1,0 +1,45 @@
+/* Home.css */
+
+.home-container {
+    position: relative;
+    height: 100vh;
+    background-image: url("https://img.freepik.com/premium-photo/online-shopping-design-shopping-trolleys-with-smartphone-advertising-poster-banner-3d-illustration_34478-1214.jpg?w=2000");
+    background-position: 0;
+    transition: background-position 0.1s ease-in-out;
+  }
+  
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  
+  .browse-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #ff8c00;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .browse-button:hover {
+    background-color: #ff6d00;
+  }
+  

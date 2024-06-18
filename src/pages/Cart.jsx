@@ -3,6 +3,10 @@ import { Footer, Navbar } from "../components";
 import { useSelector, useDispatch } from "react-redux";
 import { addCart, delCart } from "../redux/action";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import api from "../axios/config";
+
+
 
 const Cart = () => {
   const state = useSelector((state) => state.handleCart);
@@ -32,11 +36,41 @@ const Cart = () => {
 
   const ShowCart = () => {
     let subtotal = 0;
-    let shipping = 30.0;
+    let shipping = 10.0;
     let totalItems = 0;
     state.map((item) => {
-      return (subtotal += item.price * item.qty);
+      return (subtotal += item.prix * item.qty);
     });
+
+    
+
+  const [totale, settotale] = useState();
+  const [id_user, setid_user] = useState(1);
+  const [id_produit, setid_produit] = useState('');
+  const [qte, setqte] = useState('');
+
+  const handleSubmit = async (e) => {
+    console.log(state);
+    console.log(Math.round(subtotal + shipping),totalItems);
+    e.preventDefault();
+
+    for(let i = 0 ; i < state.length ; i++)
+    {
+      try {
+        const body={id_produit:state[i].id_produit , id_user : 1 , qte : state[i].quantite, prix : state[i].prix } ; 
+        const response = api.post('/commande/create', body);
+        const data = (await response).data;
+  
+       
+      } catch (error) {
+        console.error('Registration error:', error);
+        alert('Registration failed');
+      }
+      alert('commande registered successfully');
+    }
+    
+  }
+
 
     state.map((item) => {
       return (totalItems += item.qty);
@@ -62,9 +96,9 @@ const Cart = () => {
                                 data-mdb-ripple-color="light"
                               >
                                 <img
-                                  src={item.image}
+                                  src={`http://localhost:5000/file/`+item.image}
                                   // className="w-100"
-                                  alt={item.title}
+                                  alt={item.libelle}
                                   width={100}
                                   height={75}
                                 />
@@ -73,7 +107,7 @@ const Cart = () => {
 
                             <div className="col-lg-5 col-md-6">
                               <p>
-                                <strong>{item.title}</strong>
+                                <strong>{item.libelle}</strong>
                               </p>
                               {/* <p>Color: blue</p>
                               <p>Size: M</p> */}
@@ -108,7 +142,7 @@ const Cart = () => {
                               <p className="text-start text-md-center">
                                 <strong>
                                   <span className="text-muted">{item.qty}</span>{" "}
-                                  x ${item.price}
+                                  x ${item.prix}
                                 </strong>
                               </p>
                             </div>
@@ -141,16 +175,18 @@ const Cart = () => {
                         </div>
                         <span>
                           <strong>${Math.round(subtotal + shipping)}</strong>
+                          
                         </span>
                       </li>
                     </ul>
 
-                    <Link
-                      to="/checkout"
+                    <button
+                      onClick={handleSubmit}
+                      
                       className="btn btn-dark btn-lg btn-block"
-                    >
-                      Go to checkout
-                    </Link>
+                      >
+                      Valider la Commande
+                      </button>
                   </div>
                 </div>
               </div>
